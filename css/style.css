@@ -5,6 +5,7 @@ fieldset			{ border: 0; }
 h1 					{ color: blue; margin: 0 0 4px 0; padding: 4px; font-size: 120%; border-radius: 10px; }
 h3 					{ color: red; margin: 0 0 4px 0; padding: 4px; font-size: 100%; border-radius: 10px; }
 
+#frm-done,
 #frm-login 			{ width: 300px; }
 #frm-update			{ width: 350px; }
 
