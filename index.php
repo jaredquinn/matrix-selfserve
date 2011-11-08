@@ -26,6 +26,8 @@
 			} else {
 				$_SESSION['username'] = $_REQUEST['username'];
 				$_SESSION['password'] = $_REQUEST['password'];
+				$_REQUEST['mail'] = $l->getData('mail');
+				$_REQUEST['mobile'] = $l->getData('mobile');
 				include "view/update.php";
 			}
 			break;

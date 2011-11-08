@@ -15,8 +15,8 @@
 		<div><label for="mobile">Mobile Number</label><input name="mobile" type="text" value="<?= $_REQUEST['mobile'] ?>" /></div>
 		<? if(isset($err['mobile'])) { ?><div class="error"><?= $err['mobile'] ?></div><? } ?>
 
-		<div><label for="email">Email</label><input name="email" type="text" value="<?= $_REQUEST['email'] ?>" /></div>
-		<? if(isset($err['email'])) { ?><div class="error"><?= $err['email'] ?></div><? } ?>
+		<div><label for="mail">Email</label><input name="mail" type="text" value="<?= $_REQUEST['mail'] ?>" /></div>
+		<? if(isset($err['mail'])) { ?><div class="error"><?= $err['mail'] ?></div><? } ?>
 
 		<input type="submit" name="action" value="Update" />
 	</fieldset>

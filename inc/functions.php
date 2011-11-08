@@ -11,8 +11,10 @@
 		private $bindPass;
 
 		private $password;
-		private $email;
+		private $mail;
 		private $phone;
+
+		private $data;
 
 		function __construct($uid, $pass) {
 
@@ -28,6 +30,19 @@
 			}
 		}
 
+		public function getData( $attribute ) {
+
+			if(!is_array($this->data)) {
+				$dn = ldap_read($this->ds, $this->bindDN, '(objectclass=*)', array("mail", "mobile"));
+				$data = ldap_get_entries($this->ds, $dn);
+				$this->data = array();
+				$this->data['mobile'] = $data[0]['mobile'][0];
+				$this->data['mail'] = $data[0]['mail'][0];
+			}
+
+			return $this->data[$attribute];
+		}
+
 		public function processRequest( $data ) {
 
 			$this->checkValues($data);
@@ -37,15 +52,17 @@
 			} else {
 				$this->password = $data['try-password'];
 				$this->mobile = $data['mobile'];
-				$this->email = $data['email'];
+				$this->mail = $data['mail'];
 
 				$new["userPassword"] = '{md5}' . base64_encode(pack('H*', md5($this->password)));
-				$new["mail"] = $this->email;
+				$new["mail"] = $this->mail;
 				$new["mobile"] = $this->mobile;
 
-				ldap_modify($this->ds, $this->bindDN, $new);
-				print 'done';
-				die();
+				if(ldap_modify($this->ds, $this->bindDN, $new)) {
+					return true;
+				} else {
+					$this->error = 'An error occured updating your profile';
+				};
 			}
 
 		}
@@ -68,8 +85,8 @@
 				$this->errors['try-password'] = 'Password confirmation required';
 			}
 
-			if(empty($data['email'])) {
-				$this->errors['email'] = 'Email address is required';
+			if(empty($data['mail'])) {
+				$this->errors['mail'] = 'Email address is required';
 			}
 
 			if(empty($data['mobile'])) {
