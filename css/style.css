@@ -1,0 +1,22 @@
+
+html				{ font-family: Verdana, Arial; font-size: 10px; }
+fieldset			{ border: 0; }
+
+h1 					{ color: blue; margin: 0 0 4px 0; padding: 4px; font-size: 120%; border-radius: 10px; }
+h3 					{ color: red; margin: 0 0 4px 0; padding: 4px; font-size: 100%; border-radius: 10px; }
+
+#frm-login 			{ width: 300px; }
+#frm-update			{ width: 350px; }
+
+form				{ margin: 100px auto; border: 3px solid #ddd; border-radius: 10px; }
+form div			{ width: 100%; clear: both; }
+
+form label			{ text-align: right; float: left; padding: 10px 10px 0 0; }
+#frm-login label	{ width: 50px; }
+#frm-update label	{ width: 100px; }
+
+form input[type=text],
+form input[type=password] { border-radius: 5px; float: left; padding: 4px; width: 200px; }
+form input[type=submit]   { float: right; border-radius: 5px; padding: 4px 10px; margin-top: 20px; }
+
+span.view-only 		{ border-radius: 5px; float: left; padding: 8px 5px; width: 188px; border: 1px solid black; background: #ccc; color: black; margin-bottom: 4px; }
