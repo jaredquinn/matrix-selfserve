@@ -1,7 +1,7 @@
 <?
 	define('LDAP_HOST', '127.0.0.1');
 	define('LDAP_UID', 'uid');
-	define('LDAP_BASEDN', 'ou=People,dc=cats,dc=lair');
+	define('LDAP_BASEDN', 'ou=People,dc=internetservicesone,dc=matrix');
 
 	session_start();
 
@@ -22,12 +22,14 @@
 
 			if($l->hasError()) {
 				$error = $l->getError();
+				error_log($_REQUEST['username'] . ' error ' . $error);
 				include "view/login.php";
 			} else {
 				$_SESSION['username'] = $_REQUEST['username'];
 				$_SESSION['password'] = $_REQUEST['password'];
 				$_REQUEST['mail'] = $l->getData('mail');
 				$_REQUEST['mobile'] = $l->getData('mobile');
+				if(empty($_REQUEST['mobile'])) { $_REQUEST['mobile'] = '+614'; }
 				include "view/update.php";
 			}
 			break;
@@ -42,6 +44,7 @@
 				$err = $l->getFieldError();
 				include "view/update.php";
 			} else {
+				error_log('Updated user ' . $_SESSION['username']);
 				include "view/done.php";
 			} 
 			break;
