@@ -29,6 +29,9 @@
 				$_SESSION['password'] = $_REQUEST['password'];
 				$_REQUEST['mail'] = $l->getData('mail');
 				$_REQUEST['mobile'] = $l->getData('mobile');
+				$_REQUEST['manager'] = $l->getData('manager');
+				$_REQUEST['domain'] = $l->getData('domain');
+				$_REQUEST['manager_name'] = $l->getData('manager_name');
 				if(empty($_REQUEST['mobile'])) { $_REQUEST['mobile'] = '+614'; }
 				include "view/update.php";
 			}

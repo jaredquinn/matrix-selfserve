@@ -33,11 +33,18 @@
 		public function getData( $attribute ) {
 
 			if(!is_array($this->data)) {
-				$dn = ldap_read($this->ds, $this->bindDN, '(objectclass=*)', array("mail", "mobile"));
+				$dn = ldap_read($this->ds, $this->bindDN, '(objectclass=*)', array("mail", "mobile", "manager", "objectclass", "sambaNTPassword", "sambaDomainName", "sambaPwdLastSet")); 
 				$data = ldap_get_entries($this->ds, $dn);
 				$this->data = array();
 				$this->data['mobile'] = $data[0]['mobile'][0];
 				$this->data['mail'] = $data[0]['mail'][0];
+				$this->data['objectclass'] = $data[0]['objectclass'];
+				$this->data['domain'] = $data[0]['sambadomainname'][0];
+				$this->data['sambantpassword'] = $data[0]['sambantpassword'][0];
+				$manager = $data[0]['manager'][0];
+				if(!empty($manager)) {
+					$this->data['manager'] = preg_replace('/^uid=(.*),ou=(.*).*/', '\\1', $manager);
+				}
 			}
 
 			return $this->data[$attribute];
@@ -55,6 +62,14 @@
 				$this->mail = $data['mail'];
 
 				$new["userPassword"] = '{md5}' . base64_encode(pack('H*', md5($this->password)));
+		
+				$class = $this->getData('objectclass');
+
+				if(in_array('sambaSamAccount', $class)) {
+					$new["sambaNTPassword"] = strtoupper(hash('md4', iconv("UTF-8","UTF-16LE",$this->password)));
+					$new["sambaPwdLastSet"] = time();
+				}
+
 				$new["mail"] = $this->mail;
 				$new["mobile"] = $this->mobile;
 

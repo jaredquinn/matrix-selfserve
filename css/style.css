@@ -20,4 +20,4 @@ form input[type=text],
 form input[type=password] { border-radius: 5px; float: left; padding: 4px; width: 200px; }
 form input[type=submit]   { float: right; border-radius: 5px; padding: 4px 10px; margin-top: 20px; }
 
-span.view-only 		{ border-radius: 5px; float: left; padding: 8px 5px; width: 188px; border: 1px solid black; background: #ccc; color: black; margin-bottom: 4px; }
+span.view-only 		{ border-radius: 5px; float: left; padding: 8px 5px; width: 188px; border: 1px solid black; background: #ccc; color: black; margin: 4px 0; }
